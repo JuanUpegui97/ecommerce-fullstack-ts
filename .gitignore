@@ -1,0 +1,16 @@
+# Backend
+ecommerce-backend/node_modules/
+ecommerce-backend/dist/
+ecommerce-backend/.env
+
+# Frontend
+ecommerce-front/node_modules/
+ecommerce-front/dist/
+ecommerce-front/.env
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
