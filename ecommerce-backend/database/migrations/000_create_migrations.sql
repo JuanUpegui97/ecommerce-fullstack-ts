@@ -1,0 +1,9 @@
+CREATE TABLE migrations (
+
+    id SERIAL PRIMARY KEY,
+
+    archivo VARCHAR(255) UNIQUE NOT NULL,
+
+    ejecutado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+);
