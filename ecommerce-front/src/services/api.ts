@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { LoginCredentials, LoginResponse } from '../types/auth.types';
 
 
 const API_URL = 'http://localhost:3000/api';
@@ -13,9 +14,11 @@ const api = axios.create({
 
 // Servicio para autenticar
 
+
 export const authService = {
- 
-    login: (credenciales: {email: string, password: string}) => api.post('/usuarios/login', credenciales)
+
+    login: (credenciales: LoginCredentials) => api.post<LoginResponse>("/login", credenciales)
+
 };
 
 

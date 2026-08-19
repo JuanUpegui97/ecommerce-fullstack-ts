@@ -16,7 +16,7 @@ export const loginController = async (req: Request, res: Response) => {
             });
         }
 
-        const login = await loginService(data.data.email,data.data.contrasena);
+        const login = await loginService(data.data.email,data.data.password);
 
         if (login?.error) {
             return res.status(401).json(login);

@@ -2,33 +2,39 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage: React.FC = () => {
+
+  const { login } = useAuth();
 
   // La lógica de memoria sigue siendo idéntica
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => { 
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-        const respuesta = await authService.login({ email, password });
-        console.log("Respuesta del servidor:", respuesta.data);
 
-        localStorage.setItem('token', respuesta.data.token);
-        localStorage.setItem('usuarioNombre',respuesta.data.usuario);
-        navigate('/');
-        
+      const respuesta = await authService.login({ email, password });
+
+      login(
+        respuesta.data.usuario,
+        respuesta.data.token
+      );
+
+      navigate('/');
+
     } catch (error) {
-        console.error("Error al loguearse", error);
-        alert("Usuario o contraseña incorrectos");
+      console.error("Error al loguearse", error);
+      alert("Usuario o contraseña incorrectos");
     }
-    
-    setEmail("");     
-    setPassword("");  
-  }
+
+    setEmail("");
+    setPassword("");
+  };
 
   return (
 
@@ -38,13 +44,13 @@ const LoginPage: React.FC = () => {
           <Card className="shadow">
             <Card.Body>
               <h2 className="text-center mb-4">Iniciar Sesión</h2>
-              
+
               <Form onSubmit={handleSubmit}>
-                
+
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Correo Electrónico</Form.Label>
-                  <Form.Control 
-                    type="email" 
+                  <Form.Control
+                    type="email"
                     placeholder="nombre@ejemplo.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -53,8 +59,8 @@ const LoginPage: React.FC = () => {
 
                 <Form.Group className="mb-3" controlId="password">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control 
-                    type="password" 
+                  <Form.Control
+                    type="password"
                     placeholder="******"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
