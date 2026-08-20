@@ -31,7 +31,6 @@ const Navbar: React.FC = () => {
 
           <Nav className="ms-auto">
 
-            {/* Navegación */}
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
@@ -55,6 +54,12 @@ const Navbar: React.FC = () => {
                 <Nav.Link disabled>
                   Hola, {user.username}
                 </Nav.Link>
+
+                {user?.rolename === "cliente" && (
+                  <Link className="nav-link" to="/perfil">
+                    Perfil
+                  </Link>
+                )}
 
                 <Nav.Link as="button" onClick={logout}>
                   Logout
