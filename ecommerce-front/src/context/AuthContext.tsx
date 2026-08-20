@@ -16,14 +16,30 @@ export const AuthContext = createContext<AuthTools | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-    const [user, setUser] = useState<AuthUser | null>(null);
+    const iniciarAuth = () => {
 
-    const [token, setToken] = useState<string | null>(null);
+        const user = localStorage.getItem("user")
+
+        if (user) {
+
+            return JSON.parse(user)
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    const [user, setUser] = useState<AuthUser | null>(iniciarAuth);
+
+    const iniciarToken = () => {
+        return localStorage.getItem("token");
+    };
+
+    const [token, setToken] = useState<string | null>(iniciarToken);
 
     const login = (user: AuthUser, token: string) => {
-
-        console.log("LOGIN CONTEXT EJECUTADO:", user, token);
-
         setUser(user);
         setToken(token);
         localStorage.setItem('user', JSON.stringify(user));
