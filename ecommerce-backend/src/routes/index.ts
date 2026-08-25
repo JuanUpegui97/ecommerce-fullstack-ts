@@ -6,6 +6,7 @@ import categoriaAtributoRoutes from "./categoria_atributo.routes.js";
 import categoriaAtributoValorRoutes from "./categoria_atributo_valor.routes.js";
 import productoRoutes from "./producto.routes.js";
 import varianteRoutes from "./variante.routes.js";
+import varianteImagenes from "./variante_imagen.routes.js";
 import varianteCaracteristicaRoutes from "./variante_caracteristica.routes.js";
 
 import { authMiddleware } from "../middlewares/auth.middleware.js";
@@ -32,5 +33,7 @@ router.use(productoRoutes);
 router.use(varianteRoutes);
 
 router.use(varianteCaracteristicaRoutes);
+
+router.use(varianteImagenes);
 
 export default router;
