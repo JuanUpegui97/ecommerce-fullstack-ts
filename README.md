@@ -1,6 +1,6 @@
 # E-commerce Full Stack
 
-Aplicación e-commerce full stack desarrollada como proyecto de portafolio para poner en práctica el desarrollo de aplicaciones web modernas.
+Aplicación e-commerce full stack desarrollada como proyecto de portafolio.
 
 ## Tecnologías
 
@@ -13,18 +13,50 @@ Aplicación e-commerce full stack desarrollada como proyecto de portafolio para 
 ### Frontend
 - React
 - TypeScript
+- Vite
+
+## Arquitectura
+
+El proyecto está dividido en frontend y backend, ejecutados de forma independiente.
+
+El frontend consume las APIs del backend mediante HTTP.
+
+### Backend
+
+Organizado en:
+
+- Controllers
+- Services
+- Repositories
+- Routes
+- Middlewares
+- DTOs
+- Schemas
+- Types
+- Database migrations
+
+### Frontend
+
+Organizado en:
+
+- Components
+- Pages
+- Context
+- Services
+- Types
+- Assets
 
 ## Funcionalidades
 
 - Autenticación de usuarios
-- Autorización mediante roles
+- Autorización basada en roles
+- Rutas protegidas
 - API REST
 - Gestión de usuarios
 - Gestión de productos
-- Arquitectura organizada por controladores, servicios y repositorios
+- Subida de imágenes
+- Conexión con PostgreSQL
 
 ## Estado del proyecto
 
 🚧 En desarrollo.
-
-El proyecto se encuentra en construcción y se irán incorporando nuevas funcionalidades progresivamente.
