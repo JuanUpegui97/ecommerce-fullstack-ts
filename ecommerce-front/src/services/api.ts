@@ -1,16 +1,30 @@
 import axios from 'axios';
 import type { LoginCredentials, LoginResponse } from '../types/auth.types';
+import type { Categoria } from './categoria';
+
 
 
 const API_URL = 'http://localhost:3000/api';
 
 const api = axios.create({
-    baseURL:API_URL,
-    headers:{
+    baseURL: API_URL,
+    headers: {
         'Content-Type': 'application/json'
     }
 
 });
+
+api.interceptors.request.use((config) => {
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+
 
 // Servicio para autenticar
 
@@ -28,6 +42,12 @@ export const gestionProductos = {
 
     getAll: () => api.get('/productos')
 };
+
+// Sercicio para Categorias
+
+export const gestionCategorias = {
+    getAll: () => api.get<Categoria[]>("/categoria")
+}
 
 
 export default api;

@@ -9,6 +9,7 @@ import { CartProvider } from './context/CartContext';
 import CartPage from './pages/CartPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import GestionProductosPage from './pages/admin/GestionProductosPage';
 
 
 
@@ -32,6 +33,11 @@ const App: React.FC = () => {
               {/* Rutas protegidas */}
               <Route element={<ProtectedRoute rolesPermitidos={["cliente"]} />}>
                 <Route path="/perfil" element={<PerfilPage />} />
+              </Route>
+
+              {/* Rutas protegidas */}
+              <Route element={<ProtectedRoute rolesPermitidos={["administrador"]} />}>
+                <Route path="/gestionproductos" element={<GestionProductosPage />} />
               </Route>
 
             </Routes>

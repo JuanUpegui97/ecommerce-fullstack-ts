@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart, type CartItem } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Navbar as BootstrapNavbar, Nav, Container } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+
 
 const Navbar: React.FC = () => {
+
+  const navigate = useNavigate();
 
   const { cart } = useCart();
 
@@ -17,57 +21,32 @@ const Navbar: React.FC = () => {
     0
   );
 
+  const handLogout = () => {
+    logout();
+    navigate("/");
+  }
+
   return (
     <BootstrapNavbar bg="dark" variant="dark" expand="lg" className="mb-4" >
+
       <Container>
 
-        <Link className="navbar-brand" to="/">
-          Mi Ecommerce
-        </Link>
+        {/* Marca */}
+        <Link className="navbar-brand" to="/">Mi Ecommerce</Link>
 
+        {/* Botón hamburguesa */}
         <BootstrapNavbar.Toggle aria-controls="navbarMenu" />
 
+        {/* Contenido responsive */}
         <BootstrapNavbar.Collapse id="navbarMenu">
 
-          <Nav className="ms-auto">
+          {/* Grupo 1: navegación principal */}
+          <Nav className="me-auto">
 
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
 
-            {/* Si NO hay usuario */}
-            {!user && (
-              <>
-                <Nav.Link as={Link} to="/register">
-                  Register
-                </Nav.Link>
-
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-              </>
-            )}
-
-            {/* Si SÍ hay usuario */}
-            {user && (
-              <>
-                <Nav.Link disabled>
-                  Hola, {user.username}
-                </Nav.Link>
-
-                {user?.rolename === "cliente" && (
-                  <Link className="nav-link" to="/perfil">
-                    Perfil
-                  </Link>
-                )}
-
-                <Nav.Link as="button" onClick={logout}>
-                  Logout
-                </Nav.Link>
-              </>
-            )}
-
-            {/* Carrito */}
             <Nav.Link
               as={Link}
               to="/carrito"
@@ -81,9 +60,60 @@ const Navbar: React.FC = () => {
 
           </Nav>
 
+          {/* Grupo 2: autenticación y usuario */}
+          <Nav>
+
+            {/* Si NO hay usuario */}
+            {!user && (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/register">
+                  Register
+                </Nav.Link>
+              </>
+            )}
+
+            {/* Si SÍ hay usuario */}
+            {user && (
+              <>
+                <Nav.Link disabled>
+                  Hola, {user.username}
+                </Nav.Link>
+
+                {user.rolename === "cliente" && (
+                  <Nav.Link as={Link} to="/perfil">
+                    Perfil
+                  </Nav.Link>
+                )}
+
+                <Nav.Link as="button" onClick={handLogout}>
+                  Logout
+                </Nav.Link>
+              </>
+            )}
+
+            {/* Grupo 3: adminisrador */}
+
+            {user?.rolename === "administrador" && (
+              <NavDropdown
+                title="Gestión Ecommerce"
+                id="gestion-ecommerce-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/gestionproductos">
+                  Gestión Productos
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+
+          </Nav>
+
         </BootstrapNavbar.Collapse>
 
       </Container>
+
     </BootstrapNavbar>
   );
 };
