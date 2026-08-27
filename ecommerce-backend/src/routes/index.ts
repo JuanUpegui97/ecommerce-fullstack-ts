@@ -8,6 +8,7 @@ import productoRoutes from "./producto.routes.js";
 import varianteRoutes from "./variante.routes.js";
 import varianteImagenes from "./variante_imagen.routes.js";
 import varianteCaracteristicaRoutes from "./variante_caracteristica.routes.js";
+import tipoProductosRoutes from "./tipo_productos.routes.js";
 
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
@@ -35,5 +36,7 @@ router.use(varianteRoutes);
 router.use(varianteCaracteristicaRoutes);
 
 router.use(varianteImagenes);
+
+router.use(tipoProductosRoutes);
 
 export default router;

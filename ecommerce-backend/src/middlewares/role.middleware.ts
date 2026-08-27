@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
-export const roleMiddleware = (...rolesPermitidos: string[]) => {
-    
+export const roleMiddleware = (...rolesPermitidos: ("administrador" | "cliente")[]) => {
+
     return (req: Request, res: Response, next: NextFunction) => {
 
         const usuario = req.user;
