@@ -102,8 +102,20 @@ const Navbar: React.FC = () => {
                 title="Gestión Ecommerce"
                 id="gestion-ecommerce-dropdown"
               >
-                <NavDropdown.Item as={Link} to="/gestionproductos">
-                  Gestión Productos
+                <NavDropdown.Item as={Link} to="/gestioncategorias">
+                  CATEGORÍAS
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link} to="/gestiontiposproducto">
+                  TIPOS DE PRODUCTO
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link} to="/gestionplantillas">
+                  PLANTILLAS DE PRODUCTO
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link} to="/gestioninventario">
+                  INVENTARIO
                 </NavDropdown.Item>
               </NavDropdown>
             )}
