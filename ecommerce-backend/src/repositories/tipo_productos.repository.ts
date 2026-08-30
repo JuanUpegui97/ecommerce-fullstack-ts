@@ -3,6 +3,26 @@ import pool from "../config/database.js";
 import { CrearTipoProductoDTO } from "../dto/tipo_producto.dto.js";
 
 
+
+export const obtenerTiposProductos = async () => {
+
+    const result = await pool.query(
+        `
+        SELECT 
+            tipos_productos.id,
+            tipos_productos.categoria_id,
+            tipos_productos.nombre,
+            categorias.nombre AS categoria_nombre
+        FROM tipos_productos
+        JOIN categorias
+            ON tipos_productos.categoria_id = categorias.id
+        ORDER BY tipos_productos.nombre
+        `
+    );
+
+    return result.rows;
+};
+
 export const obtenerTiposPorCategoria = async (categoriaId: number) => {
 
     const result = await pool.query(

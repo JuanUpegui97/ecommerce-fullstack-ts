@@ -2,10 +2,32 @@ import { Request, Response } from "express";
 
 import {
     obtenerTiposPorCategoriaService,
-    crearTipoProductoService
+    crearTipoProductoService,
+    obtenerTiposProductosService
 } from "../services/tipo_productos.service.js";
 
 import { crearTipoProductoSchema } from "../schemas/tipo_producto.schema.js";
+
+
+export const obtenerTiposProductosController = async (req: Request, res: Response) => {
+
+    try {
+
+        const tipos = await obtenerTiposProductosService();
+
+        return res.status(200).json(tipos);
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            mensaje: "Error al obtener los tipos de producto"
+        });
+
+    }
+
+};
 
 
 export const obtenerTiposPorCategoriaController = async (req: Request, res: Response) => {

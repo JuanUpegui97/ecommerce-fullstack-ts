@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { LoginCredentials, LoginResponse } from '../types/auth.types';
 import type { Categoria, CategoriaCrear } from './categoria';
+import type { TipoProductoCrear, TiposProductos } from './tipos_productos';
 
 
 
@@ -50,6 +51,17 @@ export const gestionCategorias = {
     getAll: () => api.get<Categoria[]>("/categoria"),
 
     create: (data: CategoriaCrear) => api.post("/categoria" , data)
+
+}
+
+// Sercicio para Tipos de Prodcutos
+
+export const gestionTiposProductos  = {
+
+    getAll: () => api.get<TiposProductos[]>("/tipos-producto"),
+
+    create: (data: TipoProductoCrear) => api.post("/tipos-producto" , data)
+
 
 }
 

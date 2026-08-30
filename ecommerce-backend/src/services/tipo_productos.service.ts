@@ -1,6 +1,12 @@
-import { obtenerTiposPorCategoria, crearTipoProducto } from "../repositories/tipo_productos.repository.js";
+import { obtenerTiposPorCategoria, crearTipoProducto, obtenerTiposProductos } from "../repositories/tipo_productos.repository.js";
 
 import { CrearTipoProductoDTO } from "../dto/tipo_producto.dto.js";
+
+
+export const obtenerTiposProductosService = async () => {
+
+    return await obtenerTiposProductos();
+}
 
 
 export const obtenerTiposPorCategoriaService = async (categoriaId: number) => {

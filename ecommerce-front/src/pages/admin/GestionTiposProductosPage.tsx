@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { gestionCategorias } from '../../services/api';
-import type { Categoria } from '../../services/categoria';
+import type { TiposProductos } from '../../services/tipos_productos';
+import { gestionCategorias, gestionTiposProductos } from '../../services/api';
 import { Button, Card, Table } from 'react-bootstrap';
-import CrearCategoriaModal from '../../components/admin/categorias/CrearCategoriaModal';
+import CrearTipoProductoModal from '../../components/admin/categorias/CrearTipoProductoModal';
+import type { Categoria } from '../../services/categoria';
 
 
-const GestionCategoriasPage = () => {
+const GestionTiposProductosPage = () => {
 
-    const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [tiposProductos, setTiposProductos] = useState<TiposProductos[]>([]);
     const [loading, setLoading] = useState(false);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
 
-  
-    const cargarCategorias = async () => {
+
+
+    const cargarTiposProductos = async () => {
 
         try {
 
             setLoading(true);
 
-            const categorias = await gestionCategorias.getAll();
-
-            setCategorias(categorias.data);
+            const [respTipos, respCategorias] = await Promise.all([
+                gestionTiposProductos.getAll(),
+                gestionCategorias.getAll()
+            ]);
+    
+            setTiposProductos(respTipos.data);
+            setCategorias(respCategorias.data);
 
         } catch (error) {
             console.error('Error al cargar consultorios:', error);
@@ -30,17 +37,17 @@ const GestionCategoriasPage = () => {
         }
     }
 
-    const renderCategorias = () => {
+    const renderTiposProductos = () => {
         return (
             <Card>
                 <Card.Body>
 
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <div>
-                            <h4 className="mb-1">Categorías</h4>
+                            <h4 className="mb-1">Tipos de producto</h4>
 
                             <p className="text-muted mb-0">
-                                Administra las categorías de tu catálogo
+                                Administra los tipos de producto de tu catálogo
                             </p>
                         </div>
 
@@ -48,32 +55,41 @@ const GestionCategoriasPage = () => {
                             variant="primary"
                             onClick={() => setMostrarModal(true)}
                         >
-                            + Crear categoría
+                            + Crear tipo de producto
                         </Button>
                     </div>
 
-                    {categorias.length === 0 ? (
+                    {tiposProductos.length === 0 ? (
+
                         <div className="text-center py-5">
                             <p className="text-muted mb-3">
-                                No hay categorías creadas todavía.
-                            </p>           
+                                No hay tipos de producto creados todavía.
+                            </p>
                         </div>
+
                     ) : (
+
                         <Table striped hover responsive>
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Prefijo SKU</th>
+                                    <th>Categoría</th>
                                     <th className="text-end">Acciones</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {categorias.map((categoria) => (
-                                    <tr key={categoria.id}>
-                                        <td>{categoria.nombre}</td>
+                                {tiposProductos.map((tipoProducto) => (
 
-                                        <td>{categoria.prefijo_sku}</td>
+                                    <tr key={tipoProducto.id}>
+
+                                        <td>
+                                            {tipoProducto.nombre}
+                                        </td>
+
+                                        <td>
+                                            {tipoProducto.categoria_nombre}
+                                        </td>
 
                                         <td className="text-end">
                                             <Button
@@ -83,10 +99,13 @@ const GestionCategoriasPage = () => {
                                                 ⋮
                                             </Button>
                                         </td>
+
                                     </tr>
+
                                 ))}
                             </tbody>
                         </Table>
+
                     )}
 
                 </Card.Body>
@@ -96,7 +115,8 @@ const GestionCategoriasPage = () => {
 
     useEffect(() => {
 
-        cargarCategorias();
+        cargarTiposProductos();
+
     }, []);
 
     return (
@@ -104,12 +124,13 @@ const GestionCategoriasPage = () => {
         <>
             <div className="container py-4">
 
-                {renderCategorias()}
+                {renderTiposProductos()}
 
-                <CrearCategoriaModal
+                <CrearTipoProductoModal
                     show={mostrarModal}
                     onClose={() => setMostrarModal(false)}
-                    onCreated={cargarCategorias}
+                    onCreated={cargarTiposProductos}
+                    categorias={categorias}
                 />
 
             </div>
@@ -118,6 +139,4 @@ const GestionCategoriasPage = () => {
     );
 };
 
-
-export default GestionCategoriasPage;
-
+export default GestionTiposProductosPage;

@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                   CATEGORÍAS
                 </NavDropdown.Item>
 
-                <NavDropdown.Item as={Link} to="/gestiontiposproducto">
+                <NavDropdown.Item as={Link} to="/gestiontiposproductos">
                   TIPOS DE PRODUCTO
                 </NavDropdown.Item>
 
