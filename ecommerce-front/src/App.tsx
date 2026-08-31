@@ -11,6 +11,8 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import GestionCategoriasPage from './pages/admin/GestionCategoriasPage';
 import GestionTiposProductosPage from './pages/admin/GestionTiposProductosPage';
+import GestionAtributosProductosPage from './pages/admin/GestionProductosAtributosPage';
+import GestionProductosAtributosPage from './pages/admin/GestionProductosAtributosPage';
 
 
 
@@ -40,6 +42,9 @@ const App: React.FC = () => {
               <Route element={<ProtectedRoute rolesPermitidos={["administrador"]} />}>
                 <Route path="/gestioncategorias" element={<GestionCategoriasPage />} />
                 <Route path="/gestiontiposproductos" element={<GestionTiposProductosPage />} />
+                <Route path="/gestionproductosatributos" element={<GestionProductosAtributosPage />} />
+
+
               </Route>
 
             </Routes>

@@ -65,6 +65,18 @@ export const gestionTiposProductos  = {
 
 }
 
+// Servicio para Tipo Prodcuto Atributos
+
+export const gestionTipoProductoAtributos = {
+
+    getAll: (tipoProductoId: number) =>
+        api.get(`/tipo-producto/${tipoProductoId}/atributos`),
+
+    create: (tipoProductoId: number, data: { nombre: string }) =>
+        api.post(`/tipo-producto/${tipoProductoId}/atributos`, data)
+
+};
+
 
 export default api;
 

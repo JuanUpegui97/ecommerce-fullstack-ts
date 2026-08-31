@@ -110,8 +110,8 @@ const Navbar: React.FC = () => {
                   TIPOS DE PRODUCTO
                 </NavDropdown.Item>
 
-                <NavDropdown.Item as={Link} to="/gestionplantillas">
-                  PLANTILLAS DE PRODUCTO
+                <NavDropdown.Item as={Link} to="/gestionproductosatributos">
+                  PRODUCTOS ATRIBUTOS
                 </NavDropdown.Item>
 
                 <NavDropdown.Item as={Link} to="/gestioninventario">
